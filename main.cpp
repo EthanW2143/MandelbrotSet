@@ -12,6 +12,7 @@ int main()
 {
   //To Do list:
   //After MouseButtonPress set state to: CALCULATING
+	
   VideoMode vm(1920, 1080);
   int width = VideoMode::getDesktopMode().width / 2;
   int height = VideoMode::getDesktopMode().height / 2;
@@ -22,7 +23,7 @@ int main()
   
   if (!font.loadFromFile("planet benson 2.ttf"))
     {
-      cout << "Error loading font file" << endl; // Throw error instead of cout
+      	cout << "Error loading font file" << endl; // Throw error instead of cout
     }
   
   sf::Text text;
@@ -44,8 +45,8 @@ int main()
 		    {
             if (event.type == Event::Closed)
               {
-				        // Quit the game when the window is closed
-				        window.close();
+			// Quit the game when the window is closed
+			window.close(); 
               }
           
             if (event.type == sf::Event::MouseButtonPressed)
@@ -56,7 +57,8 @@ int main()
               
                 if (event.mouseButton.button == sf::Mouse::Left)
                 {
-  
+  			CPlane.zoomIn();
+			CPlane.setCenter(event.mouseButton.x, event.mouseButton.y);
                 }
                   
                // Right click will zoomOut and call setCenter 
@@ -64,7 +66,8 @@ int main()
                   
                 else if (event.mouseButton.button == sf::Mouse::Right)
                 {
-
+			CPlane.zoomOut();
+			CPlane.setCenter(event.mouseButton.x, event.mouseButton.y);
                 }
               
             }
@@ -74,7 +77,7 @@ int main()
             // Call setMouseLocation on the 
             // ComplexPlane object to store the (x,y) pixel location of the mouse click
             // This will be used later to display the mouse coordinates as it moves
-              
+		    CPlane.setMouseLocation(event.mouseButton.x, event.mouseButton.y);
             }
 
             
@@ -83,7 +86,7 @@ int main()
     
     if (event.type == sf::Event::Keyboard::isKeyPress::(Keyboard::Escape))
       {
-        window.close();
+        	window.close();
       }
 
     CPlane.updateRender();
