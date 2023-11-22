@@ -111,50 +111,41 @@ size_t ComplexPlane::countIterations(Vector2f coord)
 
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
-    Uint8 colors[5][3] = 
-    {
-        {128, 0, 128},  // Purple / Blue
-        {0, 128, 128},  // Turquoise
-        {0, 128, 0},    // Green
-        {255, 255, 0},  // Yellow
-        {255, 0, 0}     // Red
-    };
-
     if (count == MAX_ITER)
     {
-      r = 0;
-      g = 0;
-      b = 0;
+        // Pixels in the set are black
+        r = 0;
+        g = 0;
+        b = 0;
     }
-
     else
     {
-      //Creates a region based on number of iterations
-      size_t region = (count * 5) / MAX_ITER;
-      
-      // Calculate the color within the region by sliding the iteration count
-      
-      size_t regionIterations = count % (MAX_ITER / 5);
-      size_t slidingEffect = (regionIterations * 255) / (MAX_ITER / 5);
+        // Scale the count to create a gradient from red to white
+        float scale = static_cast<float>(count) / MAX_ITER;
 
-      r = colors[region][0] + slidingEffect;
-      g = colors[region][1] + slidingEffect;
-      b = colors[region][2] + slidingEffect;
+        // Red component increases for background gradient
+        b = static_cast<Uint8>(255 * scale);
+
+        // Green and blue components are set to 0 for simplicity
+        g = 0;
+        r = 0;
+
+        // Add a white glow around pixels not in the set
+        const float glowIntensity = 0.7;
+        r += static_cast<Uint8>(255 * glowIntensity * (1.0 - scale));
+        g += static_cast<Uint8>(0 * glowIntensity * (1.0 - scale));
+        b += static_cast<Uint8>(255 * glowIntensity * (1.0 - scale));
     }
 }
 
-  Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
-  {
-    // Calculate the normalized coordinates in the range [0, 1]
-    float normalizedX = (mousePixel.x / m_pixel_size.x);
-    float normalizedY = (mousePixel.y / m_pixel_size.y);
-
+Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
+{
     // Calculate the coordinates in the complex plane
-    float realPart = normalizedX * m_plane_size.x + (m_plane_center.x - m_plane_size.x / 2.0);
-    float imaginaryPart = normalizedY * m_plane_size.y + (m_plane_center.y - m_plane_size.y / 2.0);
+    float realPart = mousePixel.x * m_plane_size.x / m_pixel_size.x + (m_plane_center.x - m_plane_size.x / 2.0);
+    float imaginaryPart = mousePixel.y * m_plane_size.y / m_pixel_size.y + (m_plane_center.y - m_plane_size.y / 2.0);
 
     return Vector2f(realPart, imaginaryPart);
-  }
+}
 
     
 

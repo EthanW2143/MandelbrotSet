@@ -15,8 +15,9 @@ int main()
   //After MouseButtonPress set state to: CALCULATING
 	
   VideoMode vm(1920, 1080);
-  int width = VideoMode::getDesktopMode().width / 2;
-  int height = VideoMode::getDesktopMode().height / 2;
+  int width = VideoMode::getDesktopMode().width;
+  int height = VideoMode::getDesktopMode().height;
+
 
 
   //Loads the font file
@@ -30,9 +31,9 @@ int main()
   sf::Text text;
   text.setFont(font);
   text.setString("Click on any 3 points on your screen");
-  text.setCharacterSize(36);
+  text.setCharacterSize(24);
   text.setFillColor(sf::Color::Red);
-  text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+  
 
   RenderWindow window(vm, "Mandelbrot", Style::Default);
 
@@ -73,14 +74,14 @@ int main()
 		CPlane.setState(State::CALCULATING);  
             }
 
-            while (event.type == sf::Event::MouseMoved)
-            {
-            // Call setMouseLocation on the 
-            // ComplexPlane object to store the (x,y) pixel location of the mouse click
-            // This will be used later to display the mouse coordinates as it moves
-            
-		          CPlane.setMouseLocation(Vector2i(event.mouseButton.x, event.mouseButton.y));
-            }
+          while (event.type == sf::Event::MouseMoved)
+    {
+        // Call setMouseLocation on the 
+        // ComplexPlane object to store the (x,y) pixel location of the mouse move
+        // This will be used later to display the mouse coordinates as it moves
+        CPlane.setMouseLocation(Vector2i(event.mouseMove.x, event.mouseMove.y));
+        event = sf::Event(); // Consume the event to avoid an infinite loop
+    }
 
 		if (Keyboard::isKeyPressed(Keyboard::Escape))
      			 {
@@ -90,7 +91,7 @@ int main()
             
  
 	    }
-    window.setFramerateLimit(60);
+  
     CPlane.updateRender();
     CPlane.loadText(text);
     sf::RenderStates states = sf::RenderStates::Default;

@@ -10,7 +10,7 @@
 #define COMPLEXPLANE_H
 
 #include <SFML/Graphics.hpp>
-
+//Changed MAX_ITER for speed
 const unsigned int MAX_ITER = 64;
 const float BASE_WIDTH = 4.0;
 const float BASE_HEIGHT = 4.0;
