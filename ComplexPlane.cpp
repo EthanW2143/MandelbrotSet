@@ -11,7 +11,7 @@ ComplexPlane::ComplexPlane(inr pixelWidth, int pixelHeight)
   m_pixel_size = Vector2f(pixelWidth, pixelHeight);
   m_aspectRatio = pixelHeight / pixelWidth;
   m_plane_center = Vector2f(0, 0);
-  m_plane_size = Vector2f(BASE_WIDTH, BASE_HEIGHT * m_aspectRatio)
+  m_plane_size = Vector2f(BASE_WIDTH, BASE_HEIGHT * m_aspectRatio);
   m_zoomCount = 0;
   m_state = State::CALCULATING;
   m_vArray = VertexArray(Points, pixelWidth * pixelHeight);
@@ -48,17 +48,17 @@ void ComplexPlane::updateRender()
 void ComplexPlane::zoomIn()
 {
   m_ZoomCount++;
-  float xVar = BASE_WIDTH * (pow(BASE_ZOOM, m_ZoomCount));
-  float yVar = BASE_HEIGHT * (pow(BASE_ZOOM, m_ZoomCount));
+  float xVar = BASE_WIDTH * (pow(BASE_ZOOM, m_zoomCount));
+  float yVar = BASE_HEIGHT * (pow(BASE_ZOOM, m_zoomCount));
   m_plane_size = Vector2f(xVar, yVar);
   m_state = CALCULATING;
 }
 
 void ComplexPlane::zoomOut()
 {
-  m_ZoomCount--;
-  float xVar = BASE_WIDTH * (pow(BASE_ZOOM, m_ZoomCount));
-  float yVar = BASE_HEIGHT * (pow(BASE_ZOOM, m_ZoomCount));
+  m_zoomCount--;
+  float xVar = BASE_WIDTH * (pow(BASE_ZOOM, m_zoomCount));
+  float yVar = BASE_HEIGHT * (pow(BASE_ZOOM, m_zoomCount));
   m_plane_size = Vector2f(xVar, yVar);
   m_state = CALCULATING;
 }
