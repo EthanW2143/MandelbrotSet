@@ -4,6 +4,9 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <complex>
+#ifndef COMPLEXPLANE_H
+#define COMPLEXPLANE_H
 
 using namespace sf;
 using namespace std;
@@ -24,7 +27,7 @@ class ComplexPlane : public sf::Drawable
         void zoomOut();
         void setCenter(Vector2i mousePixel);
         void setMouseLocation(Vector2i mousePixel);
-        void loadText(text& text);
+        void loadText(Text& text);
         void updateRender();
 
      private:
@@ -40,5 +43,7 @@ class ComplexPlane : public sf::Drawable
         void iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b);
         Vector2f mapPixelToCoords(Vector2i mousePixel);      
   }
+
+#endif
 
 
