@@ -69,8 +69,7 @@ int main()
 			CPlane.zoomOut();
 			CPlane.setCenter(event.mouseButton.x, event.mouseButton.y);
                 }
-		    state = 
-              
+		CPlane.setState(State::CALCULATING);  
             }
 
             if (event.type == sf::Event::MouseMoved)
@@ -81,14 +80,14 @@ int main()
 		    CPlane.setMouseLocation(event.mouseButton.x, event.mouseButton.y);
             }
 
+		if (event.type == sf::Event::Keyboard::isKeyPress::(Keyboard::Escape))
+     			 {
+        			window.close();
+     			 }
+
             
  
 	}
-    
-    if (event.type == sf::Event::Keyboard::isKeyPress::(Keyboard::Escape))
-      {
-        	window.close();
-      }
 
     CPlane.updateRender();
     Cplane.loadText(text);
