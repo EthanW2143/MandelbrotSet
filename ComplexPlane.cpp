@@ -32,13 +32,13 @@ void ComplexPlane::updateRender()
         //width (x)
         for (int j = 0; j < m_pixel_size.x; j++)
           {
-            vArray[j+ i * m_pixel_size.x].position = { (float)j, (float)i };
+            m_vArray[j+ i * m_pixel_size.x].position = { (float)j, (float)i };
             Vector2f coord = mapPixelToCoords(Vector2i(j, i));
             Vector2f iterations = countIterations(coord);
 
             Uint8 r,g,b;
             iterationsToRGB(iterations, r, g, b);
-            vArray[j + i * m_pixel_size.x].color = {r,g,b};
+            m_vArray[j + i * m_pixel_size.x].color = {r,g,b};
             m_state = DISPLAYING;
           }
       }
