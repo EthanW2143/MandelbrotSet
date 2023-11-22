@@ -83,7 +83,7 @@ void ComplexPlane::loadText(Text& text)
   strmOut << "Left-Click to Zoom in" << endl;
   strmOut << "Right-click to Zoom out" << endl;
 
-  text.setPosition(0,0)
+  text.setPosition(0,0);
   text.setString(strmOut.str());
 }
 
