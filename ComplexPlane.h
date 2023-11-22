@@ -25,6 +25,7 @@ class ComplexPlane : public sf::Drawable
         void draw( RenderTarget& target, RenderStates states);
         void zoomIn();
         void zoomOut();
+        void setState(State newState) { m_state = newState;}
         void setCenter(Vector2i mousePixel);
         void setMouseLocation(Vector2i mousePixel);
         void loadText(Text& text);
