@@ -4,6 +4,7 @@
 #include <SFML/Audio.hpp>
 #include <sstream>
 #include <vector>
+#include "ComplexPlane.h"
 
 using namespace sf;
 using namespace std;
@@ -58,7 +59,7 @@ int main()
                 if (event.mouseButton.button == sf::Mouse::Left)
                 {
   			CPlane.zoomIn();
-			CPlane.setCenter(event.mouseButton.x, event.mouseButton.y);
+			CPlane.setCenter(Vector2i(event.mouseButton.x, event.mouseButton.y));
                 }
                   
                // Right click will zoomOut and call setCenter 
@@ -67,33 +68,34 @@ int main()
                 else if (event.mouseButton.button == sf::Mouse::Right)
                 {
 			CPlane.zoomOut();
-			CPlane.setCenter(event.mouseButton.x, event.mouseButton.y);
+			CPlane.setCenter(Vector2i(event.mouseButton.x, event.mouseButton.y));
                 }
 		CPlane.setState(State::CALCULATING);  
             }
 
-            if (event.type == sf::Event::MouseMoved)
+            while (event.type == sf::Event::MouseMoved)
             {
             // Call setMouseLocation on the 
             // ComplexPlane object to store the (x,y) pixel location of the mouse click
             // This will be used later to display the mouse coordinates as it moves
-		    CPlane.setMouseLocation(event.mouseButton.x, event.mouseButton.y);
+            
+		          CPlane.setMouseLocation(Vector2i(event.mouseButton.x, event.mouseButton.y));
             }
 
-		if (event.type == sf::Event::Keyboard::isKeyPress::(Keyboard::Escape))
+		if (Keyboard::isKeyPressed(Keyboard::Escape))
      			 {
         			window.close();
      			 }
 
             
  
-	}
-
+	    }
+    window.setFramerateLimit(60);
     CPlane.updateRender();
-    Cplane.loadText(text);
-
+    CPlane.loadText(text);
+    sf::RenderStates states = sf::RenderStates::Default;
     window.clear();
-    CPlane.draw(window); //Need Parameters
+    CPlane.draw(window, states); //Need Parameters
     window.draw(text);
     window.display();
 

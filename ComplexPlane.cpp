@@ -2,13 +2,14 @@
 #include <iostream>
 #include <cmath>
 #include <sstream>
+//#include <SFML/System/Vector2.hpp> 
 
 using namespace std;
 using namespace sf;
 
-ComplexPlane::ComplexPlane(inr pixelWidth, int pixelHeight)
+ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight)
 {
-  m_pixel_size = Vector2f(pixelWidth, pixelHeight);
+  m_pixel_size = Vector2i(pixelWidth, pixelHeight);
   m_aspectRatio = pixelHeight / pixelWidth;
   m_plane_center = Vector2f(0, 0);
   m_plane_size = Vector2f(BASE_WIDTH, BASE_HEIGHT * m_aspectRatio);
@@ -34,20 +35,21 @@ void ComplexPlane::updateRender()
           {
             m_vArray[j+ i * m_pixel_size.x].position = { (float)j, (float)i };
             Vector2f coord = mapPixelToCoords(Vector2i(j, i));
-            Vector2f iterations = countIterations(coord);
+            size_t iterations = countIterations(coord);
 
             Uint8 r,g,b;
             iterationsToRGB(iterations, r, g, b);
             m_vArray[j + i * m_pixel_size.x].color = {r,g,b};
-            m_state = DISPLAYING;
+            //m_state = DISPLAYING;
           }
       }
+      m_state = DISPLAYING;
   }
 }
 
 void ComplexPlane::zoomIn()
 {
-  m_ZoomCount++;
+  m_zoomCount++;
   float xVar = BASE_WIDTH * (pow(BASE_ZOOM, m_zoomCount));
   float yVar = BASE_HEIGHT * (pow(BASE_ZOOM, m_zoomCount));
   m_plane_size = Vector2f(xVar, yVar);
@@ -128,17 +130,18 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
     else
     {
       //Creates a region based on number of iterations
-      size_t region = (count * 5) / maxIterations;
+      size_t region = (count * 5) / MAX_ITER;
       
       // Calculate the color within the region by sliding the iteration count
       
-      size_t regionIterations = count % (maxIterations / 5);
-      size_t slidingEffect = (regionIterations * 255) / (maxIterations / 5);
+      size_t regionIterations = count % (MAX_ITER / 5);
+      size_t slidingEffect = (regionIterations * 255) / (MAX_ITER / 5);
 
-      r = baseColors[region][0] + slidingEffect;
-      g = baseColors[region][1] + slidingEffect;
-      b = baseColors[region][2] + slidingEffect;
+      r = colors[region][0] + slidingEffect;
+      g = colors[region][1] + slidingEffect;
+      b = colors[region][2] + slidingEffect;
     }
+}
 
   Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
   {
@@ -157,5 +160,5 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 
 
 
-}
+
 
