@@ -69,6 +69,7 @@ int main()
 			CPlane.zoomOut();
 			CPlane.setCenter(event.mouseButton.x, event.mouseButton.y);
                 }
+		    state = 
               
             }
 
@@ -90,10 +91,10 @@ int main()
       }
 
     CPlane.updateRender();
-    Cplane.loadText();
+    Cplane.loadText(text);
 
     window.clear();
-    CPlane.draw(); //Need Parameters
+    CPlane.draw(window); //Need Parameters
     window.draw(text);
     window.display();
 
