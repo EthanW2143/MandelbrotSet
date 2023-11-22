@@ -90,6 +90,12 @@ void ComplexPlane::loadText(Text& text)
 size_t ComplexPlane::countIterations(Vector2f coord)
 {
 //Count # of iterations of the set for the given coordinate as specified above
-//
+  size_t iterations = 0;
+  complex z;
+  for (int i = 0; i < MAX_ITER; i++)
+    {
+      c
+
+  
 }
 
