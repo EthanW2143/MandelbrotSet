@@ -1,5 +1,5 @@
 #include <iostream>
-#incldue <complex>
+#include <complex>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <sstream>
