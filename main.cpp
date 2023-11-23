@@ -10,11 +10,9 @@ using namespace sf;
 using namespace std;
 
 int main() 
-{
-  //To Do list:
-  //After MouseButtonPress set state to: CALCULATING
-	
+{	
   VideoMode vm(1920, 1080);
+  //Generate window info for display
   int width = VideoMode::getDesktopMode().width;
   int height = VideoMode::getDesktopMode().height;
 
@@ -36,13 +34,13 @@ int main()
   
 
   RenderWindow window(vm, "Mandelbrot", Style::Default);
-
+  //Creates our complex plane object
   ComplexPlane CPlane(width , height);
 
   while (window.isOpen())
     {
       Event event;
-
+      //Event handling
       while (window.pollEvent(event))
       {
             if (event.type == Event::Closed)
@@ -91,7 +89,8 @@ int main()
             
  
 	    }
-  
+    //After all events are handled, updates the render, draws the text
+    //Displays the window and Mandlebrot Set (Not in that order)
     CPlane.updateRender();
     CPlane.loadText(text);
     sf::RenderStates states = sf::RenderStates::Default;
